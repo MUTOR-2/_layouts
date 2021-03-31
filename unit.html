@@ -1,0 +1,125 @@
+---
+layout: default
+---
+{% include mathjax.html %}
+
+<script type="text/javascript">
+  let mutor_unit_color = MUTOR.rbright();
+</script>
+
+<article class="unit">
+  <div class="wrapper">
+    <header class="unit-header">
+      <span class="header-pre-pre-wrapper"><span class="header-pre-pre"></span></span>
+      <!-- <span class="header-pre-wrapper"><span class="header-pre"></span></span> -->
+      <span class="header-pre-wrapper"><span class="header-pre"><div class="arrow-right"></div></span></span>
+      <span class="header"><h1 class="unit-title">Unit {{ page.number }}: {{ page.title | escape }}</h1></span>
+      <span class="header-post-wrapper"><span class="header-post"></span></span
+									   <span class="header-post-post-wrapper"><span class="header-post-post"></span></span>
+    </header>
+
+    <div class="unit-preamble">
+      <div class="synopsis">
+	<h1>Synopsis</h1>
+	{{ page.summary | markdownify }}
+      </div>
+      {% if page.animation %}
+      <div class="animation">
+	{{ page.animation }}
+      </div>
+      {% endif %}
+    </div>
+    <div class="unit-main">
+      <div class="unit-content">
+	<a id="unit-top"></a>
+	<div class="unit-transcluded-content" id="unit-transcluded-content">
+	  {{ content }}
+	</div>
+	<script type="text/javascript">
+	  {
+	      let c = document.getElementById('unit-transcluded-content');
+	      let as = c.getElementsByTagName('a');
+	      for(i = 0; i < as.length; ++i){
+		  let a = as[i];
+		  if(!a.id.includes('markdown-toc-')){
+		      a.style['background-color'] = mutor_unit_color;
+		  }
+	      }
+	  }
+	</script>
+	<script type="text/javascript">
+	  let pasttitle = 0;
+	  let toplink = document.createElement("a");
+	  toplink.setAttribute("href", "#unit-top");
+	  let h1s = document.querySelectorAll("h1");
+	  for(i = 0; i < h1s.length; i++){
+	      if(pasttitle == 0){
+		  if(h1s[i].getAttribute("class") == "unit-title"){
+		      i += 3;
+		      pasttitle = 1;
+		  }else{
+		      continue;
+		  }
+	      }
+	      let clone = toplink.cloneNode();
+	      clone.innerHTML = "(return to top)";
+	      clone.addEventListener('mouseenter', function(){
+		  this.style.background = mutor_unit_color;
+	      });
+	      clone.addEventListener('mouseout', function(){
+		  this.style.background = '#FFFFFF';
+	      });	      
+	      let parent = h1s[i].parentNode;
+	      parent.insertBefore(clone, h1s[i]);
+	  }
+	</script>
+      </div>
+      <div class="unit-info-column">
+	<h1 class="unit-info-header">Authors</h1>
+	<span class="unit-info-content" id="unit-info-author">
+	  <ul>
+	    {% for a in page.authors %}
+	    <li>{{ a }}</li>
+	    {% endfor %}
+	  </ul>
+	</span>
+	
+	<!-- <h1 class="unit-info-header">Summary</h1> -->
+	<!-- <span class="unit-info-content" id="unit-info-summary"> -->
+	  <!--   <ul> -->
+	    <!--     <li>{{ page.short_description }}</li> -->
+	    <!--   </ul> -->
+	  <!-- </span> -->
+	
+	<h1 class="unit-info-header">Topics</h1>
+	<span class="unit-info-content" id="unit-info-topics">
+	  <ul>
+	    {% for t in page.topics %}
+	    <li>{{ t }}</li>
+	    {% endfor %}
+	  </ul>
+	</span>
+	
+	<h1 class="unit-info-header" id="unit-toc-header">Contents</h1>
+	<span class="unit-info-content" id="unit-toc-content"></span>
+	<script type="text/javascript">
+	  let toc = document.querySelector("#unit-toc");
+	  let copy = toc.cloneNode(true);
+	  let links = copy.getElementsByTagName('a');
+	  for(i = 0; i < links.length; i++){
+	      let a = links[i];
+	      a.addEventListener('mouseenter', function(){
+		  this.style.background = mutor_unit_color;
+	      });
+	      a.addEventListener('mouseout', function(){
+		  this.style.background = '#FFFFFF';
+	      });
+	  }
+	  copy.setAttribute('class', "unit-info-toc");
+	  let dest = document.querySelector("#unit-toc-content");
+	  dest.appendChild(copy);
+	</script>
+      </div>
+    </div>
+  </div>
+</article>
