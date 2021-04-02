@@ -13,7 +13,31 @@
       </div>
     </main>
 
-    {%- include footer.html -%}
+    <footer class="site-footer">
+      <div class="legal">
+        <span class="links">
+          <span class="wrapper">
+	        <span class="footer-link">
+	          <a href="{{ site.baseurl }}/privacy.html">Data Privacy</a>
+	        </span>
+	        <span class="footer-link">
+	          <a href="{{ site.baseurl }}/contact.html">Contact</a>
+	        </span>
+          </span>
+        </span>
+      </div>
+      <div class="affiliates">
+        <div class="affiliation-logos">
+          {% for a in site.affiliates %}
+          <div class="affiliation-logo">
+	        <a href="{{ a[1].url }}">
+	          <img src="{{ a[1].logo }}" alt="{{ site.title | escape }}" height="{{ a[1].height }}" width="{{ a[1].width }}"  style="{{ a[1].style }}">
+	        </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </footer>
 
   </body>
 
