@@ -31,7 +31,7 @@
           {% for a in site.affiliates %}
           <div class="affiliation-logo">
 	        <a href="{{ a[1].url }}">
-	          <img src="{{ a[1].logo }}" alt="{{ site.title | escape }}" height="{{ a[1].height }}" width="{{ a[1].width }}"  style="{{ a[1].style }}">
+	          <img src="{{ site.baseurl }}/{{ a[1].logo }}" alt="{{ site.title | escape }}" height="{{ a[1].height }}" width="{{ a[1].width }}"  style="{{ a[1].style }}">
 	        </a>
           </div>
           {% endfor %}
