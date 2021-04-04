@@ -1,0 +1,58 @@
+---
+layout: page
+---
+
+<div class="event">
+  {% if page.usecontent %}
+  {{ content }}
+  {% else %}
+  <div class="event-details">
+    <div class="event-date">
+      <h2>{{ page.presentation-date }}, {{ page.presentation-time }}</h2>
+    </div>
+    <div class="event-presenter">
+      <h2>
+        {% if page.event-type %}
+        A {{ page.event-type }} by
+        {% endif %}
+        {% assign presenters = page.presenters %}
+        {% assign npresenters = presenters | size %}
+        {{ page.presenters[0].name }} ({{ page.presenters[0].affiliation }})
+        {% if npresenters == 2 %}
+        and {{ page.presenters[1].name }} ({{ page.presenters[1].affiliation }})
+        {% elsif npresenters == 3 %}
+	    , {{ page.presenters[1].name }} ({{ page.presenters[1].affiliation }}),
+        and {{ page.presenters[2].name }} ({{ page.presenters[2].affiliation }})
+        {% endif %}
+      </h2>
+    </div>
+    <div class="event-host">
+      <h2>{{ page.host }}</h2>
+    </div>
+  </div>
+  <div class="event-abstract">
+    {{ page.abstract }}
+  </div>
+  <hline>  
+    <div class="event-bios">
+      {% for p in page.presenters %}
+      <div class="event-bio">
+        <div class="event-bio-name">
+          <h2>{{ p.name }}
+            </br>{{ p.affiliation }}</h2>
+        </div>
+        <div class="event-bio-photo-bio">
+          <span class="event-bio-bio">
+            {{ p.bio }}
+          </span>
+          {% if p.photo %}
+          <span class="event-bio-photo">
+            <img src="{{ site.baseurl }}{{ p.photo }}" width="400px">
+          </span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+</div>
