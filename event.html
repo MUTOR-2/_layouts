@@ -15,14 +15,41 @@ layout: page
         {% if page.event-type %}
         A {{ page.event-type }} by
         {% endif %}
+        
         {% assign presenters = page.presenters %}
         {% assign npresenters = presenters | size %}
-        {{ page.presenters[0].name }} ({{ page.presenters[0].affiliation }})
-        {% if npresenters == 2 %}
-        and {{ page.presenters[1].name }} ({{ page.presenters[1].affiliation }})
-        {% elsif npresenters == 3 %}
-	    , {{ page.presenters[1].name }} ({{ page.presenters[1].affiliation }}),
-        and {{ page.presenters[2].name }} ({{ page.presenters[2].affiliation }})
+        
+        {% if npresenters == 1 %}
+        {{ page.presenters[0].name }}
+        {% if page.presenters[0].affiliation %}
+        ({{ page.presenters[0].affiliation }})
+        {% endif %}
+        
+        {% elsif npresenters == 2 %}
+        {{ page.presenters[0].name }}
+        {% if page.presenters[0].affiliation %}
+        ({{ page.presenters[0].affiliation }})
+        {% endif %}
+        and {{ page.presenters[1].name }}
+        {% if page.presenters[1].affiliation %}
+        ({{ page.presenters[1].affiliation }})
+        {% endif %}
+        
+        {% else %}
+        {{ page.presenters[0].name }}
+        {% if page.presenters[0].affiliation %}
+        ({{ page.presenters[0].affiliation }}),
+        {% endif %}
+        {% for p in page.presenters offset: 1 %}
+        {% if forloop.last %}
+        and {{ p.name }}
+        {% if p.affiliation %}
+        ({{ p.affiliation }})
+        {% endif %}
+        {% else %}
+	    , {{ p.name }} ({{ p.affiliation }}),
+        {% endif %}
+        {% endfor %}
         {% endif %}
       </h2>
     </div>
