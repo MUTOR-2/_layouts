@@ -33,9 +33,23 @@
                     {% if p == "units" %}
                     <li>
 		              <a class="page-link" href="">Units</a>
-    		          <ul class="second-level-menu" id="third-level-menu">
+    		          <ul class="second-level-menu" id="units-submenu">
     		            {% for u in site.units %}
     		            <li><a href="{{ site.baseurl }}{{ u.url }}">Unit {{ u.number }}: {{ u.title }}</a></li>
+    		            {% if forloop.last == false %}
+    		            {% endif %}
+    		            {% endfor %}
+    		          </ul>
+    		        </li>
+                    {% elsif p == "events" %}
+                    <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li>
+                    <li>
+		              <a class="page-link" href="">Events</a>
+    		          <ul class="second-level-menu" id="events-submenu">
+    		            {% for u in site.posts reversed %}
+    		            <li><a href="{{ site.baseurl }}{{ u.url }}">
+                            {{ u.presentation-date }} : {{ u.topic }}
+                        </a></li>
     		            {% if forloop.last == false %}
     		            {% endif %}
     		            {% endfor %}
@@ -62,17 +76,20 @@
 	          <script>
 	            function openNav() {
 		            let color = MUTOR.rbright();
-		            let e = document.getElementById("third-level-menu");
-		            e.style["background-color"] = color;
-		            e = document.getElementsByTagName("BODY");
-		            e[0].style["overflow"] = "hidden";
-		            e = document.getElementById("overlay");
-		            e.style["position"] = "fixed";
-		            e.style["overflow-y"] = "auto";
-		            e = document.getElementById("overlay");
-		            e.style["background-color"] = color;
-		            e.style.height = "100%";
-	            }
+                    let submenus = ["units-submenu", "events-submenu"];
+                    for(i = 0; i < submenus.length; i++){
+		                let e = document.getElementById(submenus[i]);
+		                e.style["background-color"] = color;
+		                e = document.getElementsByTagName("BODY");
+		                e[0].style["overflow"] = "hidden";
+		                e = document.getElementById("overlay");
+		                e.style["position"] = "fixed";
+		                e.style["overflow-y"] = "auto";
+		                e = document.getElementById("overlay");
+		                e.style["background-color"] = color;
+		                e.style.height = "100%";
+	                }
+                }
 
 	            function closeNav() {
 		            let e = document.getElementsByTagName("BODY");
