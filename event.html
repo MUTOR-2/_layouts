@@ -56,11 +56,11 @@ layout: page
     <div class="event-host">
       <h2>{{ page.host }}</h2>
     </div>
-    {% if page.registration-link %}
-    <div class="event-registration">
-      <h2>Register here:
-      <a href="https://www.crowdcast.io/e/total-art-work/register">
-        https://www.crowdcast.io/e/total-art-work/register
+    {% if page.event-link %}
+    <div class="event-link">
+      <h2>Event link:
+      <a href="{{ page.event-link }}">
+        {{ page.event-link }}
       </a>
       </h2>
     </div>
