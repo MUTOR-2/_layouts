@@ -11,96 +11,110 @@
     <header class="site-header" role="banner">
       <script>
         function openNav() {
-	        document.getElementById("myNav").style.height = "100%";
+	          document.getElementById("myNav").style.height = "100%";
         }
 
         function closeNav() {
-	        document.getElementById("myNav").style.height = "0%";
+	          document.getElementById("myNav").style.height = "0%";
         }
       </script>
       <div class="header-left">
         <span class="header-left-content">
           <span class="mutor-logo"> 
-	        <a href ="{{ "/" | relative_url }}"><img src="{{ site.baseurl }}/assets/images/mutor_logo_f1.png" alt="{{ site.title | escape }}" width="260px" height="98px"></a>
+	          <a href ="{{ "/" | relative_url }}"><img src="{{ site.baseurl }}/assets/images/mutor_logo_f1.png" alt="{{ site.title | escape }}" width="260px" height="98px"></a>
           </span>
           <span class="menu">
-	        <nav class="site-nav">
-	          <div id="overlay" class="overlay">
-	            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	            <div class="overlay-content">
-	              <ul class="top-level-menu">
+	          <nav class="site-nav">
+	            <div id="overlay" class="overlay">
+	              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	              <div class="overlay-content">
+	                <ul class="top-level-menu">
+                    {% assign found = false %}
                     {% for p in site.menu %}
                     {% if p == "units" %}
+                    {% assign found = true %}
                     <li>
-		              <a class="page-link" href="">Units</a>
-    		          <ul class="second-level-menu" id="units-submenu">
-    		            {% for u in site.units %}
-    		            <li><a href="{{ site.baseurl }}{{ u.url }}">Unit {{ u.number }}: {{ u.title }}</a></li>
-    		            {% if forloop.last == false %}
-    		            {% endif %}
-    		            {% endfor %}
-    		          </ul>
-    		        </li>
-                    {% elsif p == "events" %}
+		                  <a class="page-link" href="">Units</a>
+    		              <ul class="second-level-menu" id="units-submenu">
+    		                {% for u in site.units %}
+    		                <li><a href="{{ site.baseurl }}{{ u.url }}">Unit {{ u.number }}: {{ u.title }}</a></li>
+    		                {% if forloop.last == false %}
+    		                {% endif %}
+    		                {% endfor %}
+    		              </ul>
+    		            </li>
                     <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li>
+                    {% elsif p == "events" %}
+                    {% assign found = true %}
+                    <!-- <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li> -->
                     <li>
-		              <a class="page-link" href="">Events</a>
-    		          <ul class="second-level-menu" id="events-submenu">
-    		            {% for u in site.posts reversed %}
-    		            <li><a href="{{ site.baseurl }}{{ u.url }}">
+		                  <a class="page-link" href="">Events</a>
+    		              <ul class="second-level-menu" id="events-submenu">
+    		                {% for u in site.posts reversed %}
+    		                <li><a href="{{ site.baseurl }}{{ u.url }}">
                             {{ u.presentation-date }} : {{ u.topic }}
                         </a></li>
-    		            {% if forloop.last == false %}
-    		            {% endif %}
-    		            {% endfor %}
-    		          </ul>
-    		        </li>
+    		                {% if forloop.last == false %}
+    		                {% endif %}
+    		                {% endfor %}
+    		              </ul>
+    		            </li>
                     {% else %}
                     {%- for path in page_paths -%}
                     {% if path == p %}
-                    <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li>
+                    {% assign found = true %}
+                    <!-- <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li> -->
                     {% assign page = site.pages | where: "path", path | first %}
-    		        <li><a class="page-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+    		            <li><a class="page-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+                    <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li>
                     {% break %}
                     {% endif %}
                     {% endfor %}
                     {% endif %}
-                    {% endfor %}
+                    {% if found == false %}
+                    {% assign lst = p | split: ":" %}
+                    <li><a class="page-link" href="{{ site.baseurl }}{{ lst[0] }}">{{ lst[1] }}</a></li>
                     <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li>
-    	          </ul>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- <li class="sep"><span class="sep-space"></span><span class="sep-line"></span><span class="sep-space"></span></li> -->
+    	            </ul>
+	              </div>
 	            </div>
-	          </div>
 
-	          <span class="burger-menu" onclick="openNav()">&#9776;</span>
+	            <span class="burger-menu" onclick="openNav()">&#9776;</span>
 
-	          <script>
-	            function openNav() {
-		            let color = MUTOR.rbright();
+	            <script>
+	              function openNav() {
+		                let color = MUTOR.rbright();
                     let submenus = ["units-submenu", "events-submenu"];
                     for(i = 0; i < submenus.length; i++){
-		                let e = document.getElementById(submenus[i]);
-		                e.style["background-color"] = color;
-		                e = document.getElementsByTagName("BODY");
-		                e[0].style["overflow"] = "hidden";
-		                e = document.getElementById("overlay");
-		                e.style["position"] = "fixed";
-		                e.style["overflow-y"] = "auto";
-		                e = document.getElementById("overlay");
-		                e.style["background-color"] = color;
-		                e.style.height = "100%";
-	                }
+		                    let e = document.getElementById(submenus[i]);
+                        if(e){
+		                        e.style["background-color"] = color;
+		                        e = document.getElementsByTagName("BODY");
+		                        e[0].style["overflow"] = "hidden";
+		                        
+                        }
+                        e = document.getElementById("overlay");
+		                    e.style["position"] = "fixed";
+		                    e.style["overflow-y"] = "auto";
+		                    e = document.getElementById("overlay");
+		                    e.style["background-color"] = color;
+		                    e.style.height = "100%";
+	                  }
                 }
 
-	            function closeNav() {
-		            let e = document.getElementsByTagName("BODY");
-		            e[0].style["overflow"] = "auto";
-		            e = document.getElementById("overlay");
-		            e.style["overflow"] = "hidden";
-		            e = document.getElementById("overlay");
-		            e.style.height = "0%";
-	            }
-	          </script>
-	        </nav>
+	              function closeNav() {
+		                let e = document.getElementsByTagName("BODY");
+		                e[0].style["overflow"] = "auto";
+		                e = document.getElementById("overlay");
+		                e.style["overflow"] = "hidden";
+		                e = document.getElementById("overlay");
+		                e.style.height = "0%";
+	              }
+	            </script>
+	          </nav>
           </span> <!-- menu -->
         </span> <!-- header-left-content -->
       </div>
@@ -122,12 +136,12 @@
       <div class="legal">
         <span class="links">
           <span class="wrapper">
-	        <span class="footer-link">
-	          <a href="{{ site.baseurl }}/privacy.html">Data Privacy</a>
-	        </span>
-	        <span class="footer-link">
-	          <a href="{{ site.baseurl }}/contact.html">Contact</a>
-	        </span>
+	          <span class="footer-link">
+	            <a href="{{ site.baseurl }}/privacy.html">Data Privacy</a>
+	          </span>
+	          <span class="footer-link">
+	            <a href="{{ site.baseurl }}/contact.html">Contact</a>
+	          </span>
           </span>
         </span>
       </div>
@@ -135,9 +149,9 @@
         <div class="affiliation-logos">
           {% for a in site.affiliates %}
           <div class="affiliation-logo">
-	        <a href="{{ a[1].url }}">
-	          <img src="{{ site.baseurl }}/{{ a[1].logo }}" alt="{{ site.title | escape }}" height="{{ a[1].height }}" width="{{ a[1].width }}"  style="{{ a[1].style }}">
-	        </a>
+	          <a href="{{ a[1].url }}">
+	            <img src="{{ site.baseurl }}/{{ a[1].logo }}" alt="{{ site.title | escape }}" height="{{ a[1].height }}" width="{{ a[1].width }}"  style="{{ a[1].style }}">
+	          </a>
           </div>
           {% endfor %}
         </div>

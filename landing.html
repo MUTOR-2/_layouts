@@ -1,0 +1,24 @@
+---
+layout: page
+---
+
+<article class="page">
+  
+  <div class="page-content">
+    {{ content }}
+  </div>
+  
+  {% for c in page.courses %}
+  <div class="page-title">
+    <span class="pre-pre-wrapper"><span class="pre-pre"></span></span>
+    <span class="pre-wrapper"><span class="pre"><div class="arrow-right"></div></span></span>
+    <span class="title">
+      <a href="{{ site.url }}/{{ c.baseurl }}">
+        <h1 class="page-title">{{ c.title | escape }}</h1>
+      </a>
+    </span>
+    <span class="post-wrapper"><span class="post"></span></span>
+    <span class="post-post-wrapper"><span class="post-post"></span></span>
+  </div>
+  {% endfor %}
+</article>
