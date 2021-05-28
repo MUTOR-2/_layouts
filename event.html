@@ -59,9 +59,9 @@ layout: page
     {% if page.event-link %}
     <div class="event-link">
       <h2>Event link:
-      <a href="{{ page.event-link }}">
-        {{ page.event-link }}
-      </a>
+        <a href="{{ page.event-link }}">
+          {{ page.event-link }}
+        </a>
       </h2>
     </div>
     {% endif %}
@@ -98,6 +98,9 @@ layout: page
           {% if p.photo %}
           <span class="event-bio-photo">
             <img src="{{ site.baseurl }}{{ p.photo }}" width="400px">
+            {% if p.photo-credit %}
+            <span class="event-bio-photo-credit">Photo: {{ p.photo-credit}}</span>
+            {% endif %}
           </span>
           {% endif %}
         </div>
