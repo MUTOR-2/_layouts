@@ -73,10 +73,24 @@ layout: page
     <div class="event-bios">
       {% for p in page.presenters %}
       <div class="event-bio">
+
+        <div>
+          <h1 class="page-title">
+            {% if p.subtitle %}
+            {{ p.subtitle }}
+            {% endif %}</h1>
+        </div>
+
         <div class="event-bio-name">
-          <h2>{{ p.name }}
+          <h2>
+            {{ p.name }}
             </br>{{ p.affiliation }}</h2>
         </div>
+        
+        <div class="event-abstract">
+        {{ p.subabstract }}
+        </div>
+        <br><br/>
         <div class="event-bio-photo-bio">
           <span class="event-bio-bio">
             {{ p.bio }}
