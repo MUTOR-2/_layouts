@@ -87,7 +87,11 @@ layout: default
 	<span class="unit-info-content" id="unit-info-author">
 	  <ul>
 	    {% for a in page.authors %}
-	    <li>{{ a }}</li>
+        {% if a.website %}
+        <li><a href="{{ a.website }}">{{ a.name }}</a></li>
+        {% else %}
+	    <li>{{ a.name }}</li>
+        {% endif %}
 	    {% endfor %}
 	  </ul>
 	</span>
