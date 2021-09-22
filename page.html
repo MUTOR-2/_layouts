@@ -4,10 +4,19 @@ layout: default
 <article class="page">
 
   <header>
+    {% if page.title == "Home" %}
+    <div class="page-title">
+      <span class="lpre-pre-wrapper"><div class="arrow-left"></div><span class="lpre-pre"></span></span>
+      <span class="lpre-wrapper"><span class="lpre"></span></span>
+      <span class="mutor-home"><h1 class="page-title">MUTOR Home</h1></span>
+      <span class="lpost-wrapper"><span class="lpost"></span></span>
+      <span class="lpost-post-wrapper"><span class="lpost-post"></span></span>
+    </div>
+    {% endif %}
     <div class="page-title">
       <span class="pre-pre-wrapper"><span class="pre-pre"></span></span>
       <span class="pre-wrapper"><span class="pre"><div class="arrow-right"></div></span></span>
-      <span class="title"><h1>{{ page.title | escape }}</h1></span>
+      <span class="title"><h1 class="page-title">{{ page.title | escape }}</h1></span>
       <span class="post-wrapper"><span class="post"></span></span>
       <span class="post-post-wrapper"><span class="post-post"></span></span>
     </div>
