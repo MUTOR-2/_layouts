@@ -21,14 +21,14 @@ layout: default
     <div class="page-title">
       <span class="pre-pre-wrapper"><span class="pre-pre"></span></span>
       <span class="pre-wrapper"><span class="pre"><div class="arrow-right"></div></span></span>
-      <span class="title"><h1>Unit {{ page.number | escape }}: {{ page.title | escape }}</h1></span>
+      <span class="title"><h1 class="unit-title">Unit {{ page.number | escape }}: {{ page.title | escape }}</h1></span>
       <span class="post-wrapper"><span class="post"></span></span>
       <span class="post-post-wrapper"><span class="post-post"></span></span>
     </div>
 
     <div class="unit-preamble">
       <div class="synopsis">
-	<h1>Synopsis</h1>
+	<h1 class="unit-synopsis">Synopsis</h1>
 	{{ page.summary | markdownify }}
       </div>
       {% if page.animation %}
